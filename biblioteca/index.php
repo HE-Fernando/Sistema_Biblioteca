@@ -35,7 +35,31 @@ if (!isset($_SESSION["usuario"])){
                 return;
             }
 
-        })
+            mensaje.textContent = "Cerrando sesión...";
+
+            try{
+                const respuesta = await fetch("logout.php", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"}
+                });
+                const data = await respuesta.json();
+
+                if (data.success){
+                    mensaje.textContent = data.message;
+                    mensaje.className = "ok";
+                    setTimeout(() => {
+                        window.location.href = "login.php";
+                    }, 1500);
+                } else {
+                    mensaje.textContent = "Error al cerrar sesión.";
+                    mensaje.className = "error";
+                }
+            } catch (error) {
+                console.error("Error: ", error);
+                mensaje.textContent = "No se pudo contectar al servidor.";
+                mensaje.className = "error";
+            }
+        });
      </script>
 </body>
 </html>
