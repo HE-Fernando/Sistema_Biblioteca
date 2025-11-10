@@ -17,23 +17,22 @@
             exit();
         }
 
-        $sql = "SELECT * FROM usuario_sistema WHERE usuario = ?";
-        $stm = $conn->prepare($sql);
-        $stm->bind_param("s", $usuario);
-        $stm->execute();
-        $result = $stm->get_result();
+        $sql = "SELECT * FROM usuario_sistema WHERE usuario = :usuario";
+        $stm = $pdo->prepare($sql);
+        $stm->execute([":usuario" => $usuario]);
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
 
-        if ($result->num_rows > 0){
-            $row = $result->fetch_assoc();
-
+        if ($row){
             if (password_verify($password, $row["password"])){
                 $_SESSION["usuario"] = $row["usuario"];
                 $_SESSION["rol"] = $row["rol"];
+                $_SESSION["nombre"] = $row["nombre"];
 
                 echo json_encode([
                     "success" => true,
                     "usuario" => $row["usuario"],
-                    "rol" => $row["rol"]
+                    "rol" => $row["rol"],
+                    "nombre" => $row["nombre"]
                 ]);
             } else {
                 echo json_encode([
