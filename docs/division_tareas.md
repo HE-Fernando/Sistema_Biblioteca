@@ -12,7 +12,7 @@ Creación de base de datos.
 Archivo login.php (fetch al logica_login y validación de datos con la DB).
 Archivo logout.php (encargado del cierre de sesión).
 Implementación de "tarjeta de sesión" en el index principal (sesion del usuario, rol y logout).
-
+Login / logout funcional en index de biblioteca.
 
 # BENITEZ, Gabriel Eduardo
 Estructura del proyecto.
