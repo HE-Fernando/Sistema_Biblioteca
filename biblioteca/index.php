@@ -17,8 +17,9 @@ if (!isset($_SESSION["usuario"])){
 <body class="index">
     <!-- BARRA DE SESION -->
     <header class="navbar">
-        <h1>Bienvenido [<?php echo htmlspecialchars($_SESSION["usuario"]);?>] [<?php echo htmlspecialchars($_SESSION["rol"])?>]</h1>
+        <h1>Bienvenido [<?php echo htmlspecialchars($_SESSION["nombre"]);?>] [<?php echo htmlspecialchars($_SESSION["rol"])?>]</h1>
         <button id="logoutBtn" class="btn-logout">Cerrar sesión</button>
+        <p id="logoutMessage" class="logout-msg"></p>
     </header>
 
     <!-- ACA VA EL CONTENIDO PRINCIPAL -->
@@ -31,11 +32,13 @@ if (!isset($_SESSION["usuario"])){
         document.getElementById("logoutBtn").addEventListener("click", async () => {
             const mensaje = document.getElementById("logoutMessage");
 
+
             if (!confirm("¿Seguro que querés cerrar sesión?")){
                 return;
             }
 
             mensaje.textContent = "Cerrando sesión...";
+            mensaje.className = "logout-msg";
 
             try{
                 const respuesta = await fetch("logout.php", {
@@ -46,13 +49,13 @@ if (!isset($_SESSION["usuario"])){
 
                 if (data.success){
                     mensaje.textContent = data.message;
-                    mensaje.className = "ok";
+                    mensaje.classList.add("ok");
                     setTimeout(() => {
                         window.location.href = "login.php";
                     }, 1500);
                 } else {
                     mensaje.textContent = "Error al cerrar sesión.";
-                    mensaje.className = "error";
+                    mensaje.classList.add("error");
                 }
             } catch (error) {
                 console.error("Error: ", error);
