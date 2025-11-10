@@ -1,26 +1,47 @@
 <?php
-require_once '../includes/auth.php';
-require_once '../config/database.php';
+include("../includes/auth.php");
+include("../includes/header.php");
+include("../config/database.php");
 
-header('Content-Type: application/json; charset=utf-8');
+$mensaje = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $titulo = $_POST['titulo'] ?? '';
-    $autor = $_POST['autor'] ?? '';
-    $isbn = $_POST['isbn'] ?? '';
+  $titulo = trim($_POST['titulo']);
+  $autor = trim($_POST['autor']);
+  $isbn = trim($_POST['isbn']);
+  $editorial = $_POST['editorial'] ?? null;
+  $anio = $_POST['anio'] ?? null;
+  $categoria = $_POST['categoria'] ?? null;
+  $descripcion = $_POST['descripcion'] ?? null;
 
-    if (empty($titulo) || empty($autor) || empty($isbn)) {
-        echo json_encode(['success' => false, 'message' => 'Faltan datos']);
-        exit;
+  if ($titulo && $autor && $isbn) {
+    try {
+      $stmt = $pdo->prepare("INSERT INTO libros (titulo, autor, isbn, editorial, anio, categoria, descripcion)
+                             VALUES (?, ?, ?, ?, ?, ?, ?)");
+      $stmt->execute([$titulo, $autor, $isbn, $editorial, $anio, $categoria, $descripcion]);
+      $mensaje = "✅ Libro creado correctamente.";
+    } catch (PDOException $e) {
+      $mensaje = "⚠️ Error: ISBN duplicado o datos inválidos.";
     }
-
-    $sql = "INSERT INTO libros (titulo, autor, isbn) VALUES (?,?,?)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$titulo, $autor, $isbn]);
-
-    echo json_encode(['success' => true, 'message' => 'Libro agregado correctamente']);
-    exit;
+  } else {
+    $mensaje = "⚠️ Complete los campos obligatorios.";
+  }
 }
+?>
 
-echo json_encode(['success' => false, 'message' => 'Método no permitido']);
+<div class="container">
+  <h2>📖 Nuevo Libro</h2>
+  <p><?= $mensaje ?></p>
 
+  <form method="POST">
+    <label>Título*</label><input type="text" name="titulo" required>
+    <label>Autor*</label><input type="text" name="autor" required>
+    <label>ISBN*</label><input type="text" name="isbn" required>
+    <label>Editorial</label><input type="text" name="editorial">
+    <label>Año</label><input type="number" name="anio">
+    <label>Categoría</label><input type="text" name="categoria">
+    <label>Descripción</label><textarea name="descripcion"></textarea>
+    <button type="submit" class="btn btn-success">Guardar</button>
+  </form>
+</div>
+<?php include("../includes/footer.php"); ?>
