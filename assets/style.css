@@ -5,6 +5,7 @@
     --color-texto: #333;
     --radius: 8px;
 }
+
 /*               LOGIN                */ 
 body {
     margin: 0;
@@ -107,4 +108,105 @@ body.index button {
 
 body.index button:hover {
     background-color: var(--color-principal-hover);
+}
+
+/* --- MENÚ LATERAL --- */
+nav.sidebar {
+    width: 220px;
+    background-color: #3949ab;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+header.navbar {
+    background-color: #283593;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.btn-logout {
+    background-color: #e53935;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* === NUEVOS ESTILOS AGREGADOS DEL SEGUNDO CSS === */
+
+/* Estilos para body.index más completos */
+body.index {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f7f8fa;
+}
+
+/* header h1 (no estaba antes) */
+header h1 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* Hover del botón de logout */
+.btn-logout:hover {
+    background-color: #c62828;
+}
+
+/* Mensajes de logout */
+.logout-msg {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.logout-msg.ok { color: green; }
+.logout-msg.error { color: red; }
+
+/* --- LAYOUT GENERAL --- */
+.container {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+/* --- Enlaces dentro del menú lateral --- */
+nav.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    display: block;
+    transition: background 0.3s;
+}
+
+nav.sidebar a:hover {
+    background-color: #5c6bc0;
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+main.main-content {
+    flex: 1;
+    padding: 25px;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+/* Títulos dentro del main */
+main h2 {
+    color: #283593;
+}
+
+/* --- PIE DE PÁGINA --- */
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #e8eaf6;
+    font-size: 0.9rem;
+    color: #444;
 }

@@ -15,17 +15,44 @@ if (!isset($_SESSION["usuario"])){
     <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body class="index">
-    <!-- BARRA DE SESION -->
+    <!-- BARRA SUPERIOR -->
     <header class="navbar">
-        <h1>Bienvenido [<?php echo htmlspecialchars($_SESSION["nombre"]);?>] [<?php echo htmlspecialchars($_SESSION["rol"])?>]</h1>
+        <h1>Bienvenido
+            [<?php echo htmlspecialchars($_SESSION["nombre"]);?>]
+            [<?php echo htmlspecialchars($_SESSION["rol"])?>]
+        </h1>
         <button id="logoutBtn" class="btn-logout">Cerrar sesión</button>
-        <p id="logoutMessage" class="logout-msg"></p>
     </header>
 
-    <!-- ACA VA EL CONTENIDO PRINCIPAL -->
-    <main class="main-content">
-        <p>Contenido principal</p>
-    </main>
+    <!-- GENERAL -->
+    <div class="container">
+        <!-- BARRA LATERAL -->
+        <nav class="sidebar">
+            <a href="#">🏠 Inicio</a>
+            <a href="#">📖 Libros</a>
+            <a href="#">👥 Clientes</a>
+            <a href="#">🧾 Ventas</a>
+            <a href="#">📊 Reportes</a>
+        </nav>
+
+        <!-- PRINCIPAL -->
+        <main class="main-content">
+            <h2>Panel principal</h2>
+            <?php
+                if($_SESSION["rol"] == "admin"){
+                    echo "<p>Bienvenido al sistema de gestión de la biblioteca.</p>";
+                } else {
+                    echo "<p>Bienvenido a la biblitoeca.</p>";
+                }
+            ?>
+            <p id="logoutMessage" class="logout-msg"></p>
+        </main>         
+    </div>
+
+    <!-- PIE DE PÁGINA-->
+    <footer>
+        © <?php echo date("Y"); ?> - Sistema de Biblioteca | Benitez - Hirt
+    </footer>
     
     <!-- SCRIPTS -->
      <script>
