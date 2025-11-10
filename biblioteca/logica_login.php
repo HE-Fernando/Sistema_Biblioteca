@@ -9,7 +9,7 @@
         $usuario = $data["usuario"] ?? null;
         $password = $data["password"] ?? null;
 
-        if (!$usuario || $password){
+        if (!$usuario || !$password){
             echo json_encode([
                 "success" => false,
                 "error" => "Datos incompletos/incorrectos"
@@ -28,7 +28,7 @@
 
             if (password_verify($password, $row["password"])){
                 $_SESSION["usuario"] = $row["usuario"];
-                $SESSION["rol"] = $row["rol"];
+                $_SESSION["rol"] = $row["rol"];
 
                 echo json_encode([
                     "success" => true,

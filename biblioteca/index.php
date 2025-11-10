@@ -17,7 +17,7 @@ if (!isset($_SESSION["usuario"])){
 <body class="index">
     <!-- BARRA DE SESION -->
     <header class="navbar">
-        <h1>Bienvenido <?php echo htmlspecialchars($_SESSION["usuario"]); ?></h1>
+        <h1>Bienvenido [<?php echo htmlspecialchars($_SESSION["usuario"]);?>] [<?php echo htmlspecialchars($_SESSION["rol"])?>]</h1>
         <button id="logoutBtn" class="btn-logout">Cerrar sesión</button>
     </header>
 
