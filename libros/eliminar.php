@@ -1,24 +1,18 @@
 <?php
-require_once '../includes/auth.php';
-require_once '../config/database.php';
+include("../includes/auth.php");
+include("../includes/header.php");
+include("../config/database.php");
 
-header('Content-Type: application/json; charset=utf-8');
+$id = $_GET['id'] ?? null;
+if (!$id) die("ID no válido.");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'] ?? 0;
+$stmt = $pdo->prepare("DELETE FROM libros WHERE id=? AND estado='disponible'");
+$stmt->execute([$id]);
 
-    if (empty($id)) {
-        echo json_encode(['success' => false, 'message' => 'Falta el ID del libro']);
-        exit;
-    }
+echo "<p>✅ Libro eliminado correctamente.</p>";
+echo "<a href='index.php'>Volver</a>";
 
-    $sql = "DELETE FROM libros WHERE id=?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
+include("../includes/footer.php");
+?>
 
-    echo json_encode(['success' => true, 'message' => 'Libro eliminado correctamente']);
-    exit;
-}
-
-echo json_encode(['success' => false, 'message' => 'Método no permitido']);
 
