@@ -15,5 +15,8 @@ echo "<a href='index.php'>Volver</a>";
 include("../includes/footer.php");
 ?>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> eduardo
 
