@@ -1,6 +1,5 @@
 <?php
-require_once '../includes/auth.php';
-require_once '../config/database.php';
+require_once '../config/conexion_db.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -21,4 +20,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 echo json_encode(['success' => false, 'message' => 'Método no permitido']);
-
+?>

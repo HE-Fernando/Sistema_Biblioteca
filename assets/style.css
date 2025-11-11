@@ -216,3 +216,101 @@ nav.sidebar a.activo {
     font-weight: bold;
 }
 
+/* TABLA */
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    margin: 20px;
+}
+
+/* --- TABLA --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+/* --- ENCABEZADOS --- */
+th {
+    background-color: #0078d7;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+}
+
+/* --- CELDAS --- */
+td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+/* --- ALTERNANCIA DE FILAS --- */
+tr:nth-child(even) {
+    background-color: #f2f6fa;
+}
+
+tr:hover {
+    background-color: #e8f1fb;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* --- INPUTS --- */
+input[type="text"] {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #0078d7;
+    box-shadow: 0 0 4px rgba(0, 120, 215, 0.3);
+}
+
+/* --- TAMAÑO DE COLUMNAS --- */
+th:nth-child(1), td:nth-child(1) { width: 5%; }   /* ID */
+th:nth-child(2), td:nth-child(2) { width: 25%; }  /* Título */
+th:nth-child(3), td:nth-child(3) { width: 20%; }  /* Autor */
+th:nth-child(4), td:nth-child(4) { width: 15%; }  /* ISBN */
+th:nth-child(5), td:nth-child(5) { width: 20%; }  /* Editorial */
+th:nth-child(6), td:nth-child(6) { width: 8%; }   /* Año */
+th:nth-child(7), td:nth-child(7) { width: 7%; }   /* Estado */
+
+/* --- TEXTAREA --- */
+textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    resize: vertical; /* Permite agrandar manualmente en altura */
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+textarea:focus {
+    border-color: #0078d7;
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.3);
+    outline: none;
+}
+/* Ajuste específico para el input de año */
+input[name="anio"] {
+    width: 160px; /* podés subir a 180px si querés más espacio */
+}
+

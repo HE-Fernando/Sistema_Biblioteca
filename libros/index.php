@@ -18,6 +18,7 @@ if (!isset($_SESSION["usuario"])){
     <header class="navbar">
         [<?php echo htmlspecialchars($_SESSION["nombre"]);?>]
         [<?php echo htmlspecialchars($_SESSION["rol"])?>]
+        <button id="logoutBtn" class="btn-logout">Cerrar sesión</button>
     </header>
 
 <!-- CONTENEDOR GENERAL -->
@@ -41,11 +42,36 @@ if (!isset($_SESSION["usuario"])){
         <!-- Formulario para crear -->
         <section>
             <h3>Agregar libro</h3>
-            <form id="form-crear">
-                <input type="text" name="titulo" placeholder="Título" required>
-                <input type="text" name="autor" placeholder="Autor" required>
-                <input type="text" name="isbn" placeholder="ISBN" required>
-                <button type="submit">Guardar</button>
+            <form id="form-crear" class="form-libro">
+                <div class="form-row">
+                    <label>Titulo:</label>
+                    <input type="text" name="titulo" placeholder="Título" required>
+                </div>
+                <div class="form-row">
+                    <label>Autor:</label>
+                    <input type="text" name="autor" placeholder="Autor">
+                </div>
+                <div class="form-row">
+                    <label>ISBN:</label>
+                    <input type="text" name="isbn" placeholder="ISBN">
+                </div>
+                <div class="form-row">
+                    <label>Editorial:</label>
+                    <input type="text" name="editorial" placeholder="Editorial"> 
+                </div>
+                <div class="form-row">
+                    <label>Año:</label>
+                    <input type="number" name="anio" min="1000" max="2099" placeholder="Año de publicación"> 
+                </div>
+                <div class="form-row">
+                    <label>Categoría:</label>
+                    <input type="text" name="categoria" placeholder="Categoría"> 
+                </div>
+                <div class="form-row">
+                    <label>Descripción:</label>
+                    <textarea name="descripcion" placeholder="Breve descripción del libro" rows="3"> </textarea>
+                </div>
+                <button type="submit" class="btn-guardar">Guardar</button>
             </form>
         </section>
 
@@ -60,9 +86,19 @@ if (!isset($_SESSION["usuario"])){
         <section>
             <table id="tabla-libros">
                 <thead>
-                    <tr><th>Título</th><th>Autor</th><th>ISBN</th><th>Acciones</th></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>ISBN</th>
+                        <th>Editorial</th>
+                        <th>Año</th>
+                        <th>Categoría</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
                 </thead>
-            <tbody></tbody>
+                <tbody></tbody>
             </table>
         </section>
 
@@ -133,19 +169,26 @@ if (!isset($_SESSION["usuario"])){
 
         if (data.success && data.data.length > 0) {
             data.data.forEach(libro => {
-                const fila = document.createElement('tr');
+                const fila = document.createElement("tr");
+                const colorEstado = libro.estado === "disponible" ? "green" : "red";
                 fila.innerHTML = `
+                    <td>${libro.id}</td>
                     <td><input type="text" value="${libro.titulo}" id="titulo-${libro.id}"></td>
                     <td><input type="text" value="${libro.autor}" id="autor-${libro.id}"></td>
                     <td><input type="text" value="${libro.isbn}" id="isbn-${libro.id}"></td>
+                    <td><input type="text" value="${libro.editorial}" id="editorial-${libro.id}"></td>
+                    <td><input type="number" value="${libro.anio}" id="anio-${libro.id}"></td>
+                    <td><input type="text" value="${libro.categoria}" id="categoria-${libro.id}"></td>
+                    <td style="color:${colorEstado}; font-weight:bold;">${libro.estado}</td>
                     <td>
-                        <button onclick="editarLibro(${libro.id})">Guardar</button>
-                        <button onclick="eliminarLibro(${libro.id})">Eliminar</button>
+                        <button onclick="editarLibro(${libro.id})">💾</button>
+                        <button onclick="eliminarLibro(${libro.id})">🗑️</button>
+                        <button title="${libro.descripcion}">ℹ️</button>
                     </td>`;
                 tbody.appendChild(fila);
             });
         } else {
-            tbody.innerHTML = '<tr><td colspan="4">Sin resultados</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="9">Sin resultados</td></tr>';
         }
     }
 
@@ -156,6 +199,10 @@ if (!isset($_SESSION["usuario"])){
         formData.append('titulo', document.getElementById('titulo-' + id).value);
         formData.append('autor', document.getElementById('autor-' + id).value);
         formData.append('isbn', document.getElementById('isbn-' + id).value);
+        formData.append('editorial', document.getElementById('editorial-' + id).value);
+        formData.append('anio', document.getElementById('anio-' + id).value);
+        formData.append('categoria', document.getElementById('categoria-' + id).value);
+        formData.append('descripcion', document.getElementById('descripcion-' + id)?.value || '');
 
         const res = await fetch('editar.php', { method: 'POST', body: formData });
         const data = await res.json();
@@ -181,4 +228,3 @@ if (!isset($_SESSION["usuario"])){
 </script>
 </body>
 </html>
-
