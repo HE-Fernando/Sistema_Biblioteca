@@ -1,4 +1,4 @@
-<<?php
+<?php
 include("../includes/auth.php");
 include("../includes/header.php");
 include("../config/database.php");
