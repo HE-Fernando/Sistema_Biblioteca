@@ -30,7 +30,7 @@ if (!isset($_SESSION["usuario"])){
         ?>
         <a href="../biblioteca/index.php">🏠 Inicio</a>
         <a href="index.php" class="<?= $pagina_actual == 'index.php' ? 'activo' : '' ?>">📖 Libros</a>
-        <a href="#">👥 Clientes</a>
+        <a href="../clientes/index.php">👥 Clientes</a>
         <a href="#">🧾 Reservas</a>
         <a href="#">📊 Reportes</a>
     </nav>
@@ -183,10 +183,58 @@ if (!isset($_SESSION["usuario"])){
                     <td>
                         <button onclick="editarLibro(${libro.id})">💾</button>
                         <button onclick="eliminarLibro(${libro.id})">🗑️</button>
-                        <button title="${libro.descripcion}">ℹ️</button>
+                        <button class="info-btn">ℹ️</button>
                     </td>`;
                 tbody.appendChild(fila);
+
+                //OVERLAY
+                const btnInfo = fila.querySelector(".info-btn");
+                btnInfo.addEventListener("click", () => {
+                    const overlay = document.createElement('div');
+                    overlay.style.position = 'fixed';
+                    overlay.style.top = 0;
+                    overlay.style.left = 0;
+                    overlay.style.width = '100%';
+                    overlay.style.height = '100%';
+                    overlay.style.background = 'rgba(0,0,0,0.5)';
+                    overlay.style.display = 'flex';
+                    overlay.style.justifyContent = 'center';
+                    overlay.style.alignItems = 'center';
+                    overlay.style.zIndex = 1000;
+
+                    //RECUADRO
+                    const modal = document.createElement('div');
+                    modal.style.background = '#fff';
+                    modal.style.padding = '20px';
+                    modal.style.borderRadius = '8px';
+                    modal.style.maxWidth = '400px';
+                    modal.style.maxHeight = '300px';
+                    modal.style.overflowY = 'auto';
+                    modal.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+                    modal.style.position = 'relative';
+
+                    //Contenido
+                    const descripcion = document.createElement('p');
+                    descripcion.innerText = libro.descripcion ?? 'Sin descripción';
+                    descripcion.style.whiteSpace = 'pre-wrap'; // Mantener saltos de línea
+                    modal.appendChild(descripcion);
+
+                    //Boton de cerrar
+                    const cerrarBtn = document.createElement('button');
+                    cerrarBtn.innerText = 'Cerrar';
+                    cerrarBtn.style.marginTop = '15px';
+                    cerrarBtn.style.padding = '5px 10px';
+                    cerrarBtn.style.cursor = 'pointer';
+                    cerrarBtn.addEventListener('click', () => {
+                        overlay.remove();
+                    });
+
+                    modal.appendChild(cerrarBtn);
+                    overlay.appendChild(modal);
+                    document.body.appendChild(overlay);
+                });
             });
+
         } else {
             tbody.innerHTML = '<tr><td colspan="9">Sin resultados</td></tr>';
         }
@@ -212,7 +260,9 @@ if (!isset($_SESSION["usuario"])){
 
     // Eliminar libro
     async function eliminarLibro(id) {
-        if (!confirm('¿Desea eliminar este libro?')) return;
+        if (!confirm('¿Desea eliminar este libro?')){
+            return;
+        }
 
         const formData = new FormData();
         formData.append('id', id);

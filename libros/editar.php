@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION["usuario"])){
+    header("Location: ../biblioteca/login.php");
+    exit();
+}
 require_once '../config/conexion_db.php';
 
 header('Content-Type: application/json; charset=utf-8');

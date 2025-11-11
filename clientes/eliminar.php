@@ -1,5 +1,7 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 if (!isset($_SESSION["usuario"])){
     header("Location: ../biblioteca/login.php");
     exit();
@@ -14,18 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($id)) {
         echo json_encode([
             'success' => false,
-            'message' => 'Falta el ID del libro'
+            'message' => 'Falta el ID del cliente'
         ]);
         exit;
     }
 
-    $sql = "DELETE FROM libro WHERE id=?";
+    $sql = "DELETE FROM usuario WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
 
     echo json_encode([
         'success' => true,
-        'message' => 'Libro eliminado correctamente'
+        'message' => 'Cliente eliminado correctamente'
     ]);
     exit;
 }

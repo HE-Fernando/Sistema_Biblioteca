@@ -12,16 +12,16 @@ $buscar = $_GET['buscar'] ?? '';
 
 try {
     if (!empty($buscar)){
-        //Buscar por título, autor o ISBN
-        $sql = "SELECT id, titulo, autor, isbn, editorial, anio, categoria, descripcion, estado
-        FROM libro WHERE titulo LIKE ? OR autor LIKE ? OR isbn LIKE ? ORDER BY id DESC";
+        //Buscar por nombre, dni
+        $sql = "SELECT id, nombre_completo, email, telefono, direccion, dni, estado
+        FROM usuario WHERE nombre_completo LIKE ? OR dni LIKE ? ORDER BY id DESC";
         $stm = $pdo->prepare($sql);
         $like = "%$buscar%";
-        $stm->execute([$like, $like, $like]);
+        $stm->execute([$like, $like]);
     } else {
-        //Si no hay parametros de busqueda, listar todos los libros
-        $sql = "SELECT id, titulo, autor, isbn, editorial, anio, categoria, descripcion, estado
-        FROM libro ORDER BY id DESC";
+        //Si no hay parametros de busqueda, listar todos los clientes
+        $sql = "SELECT id, nombre_completo, email, telefono, direccion, dni, estado
+        FROM usuario ORDER BY id DESC";
         $stm = $pdo->query($sql);
     }
     $resultados = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ try {
 } catch (PDOException $e){
     echo json_encode([
         "success" => false,
-        "message" => "Error al buscar libros: " . $e->getMessage()
+        "message" => "Error al buscar clientes: " . $e->getMessage()
     ]);
 }
 ?>
