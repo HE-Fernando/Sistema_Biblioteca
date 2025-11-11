@@ -210,3 +210,9 @@ footer {
     font-size: 0.9rem;
     color: #444;
 }
+
+nav.sidebar a.activo {
+    background-color: #5c6bc0;
+    font-weight: bold;
+}
+

@@ -28,12 +28,16 @@ if (!isset($_SESSION["usuario"])){
     <div class="container">
         <!-- BARRA LATERAL -->
         <nav class="sidebar">
-            <a href="#">🏠 Inicio</a>
-            <a href="#">📖 Libros</a>
+            <?php
+            $pagina_actual = basename($_SERVER['PHP_SELF']); // obtiene el nombre del archivo actual
+            ?>
+            <a href="index.php" class="<?= $pagina_actual == 'index.php' ? 'activo' : '' ?>">🏠 Inicio</a>
+            <a href="../libros/index.php" class="<?= $pagina_actual == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) == 'libros' ? 'activo' : '' ?>">📖 Libros</a>
             <a href="#">👥 Clientes</a>
-            <a href="#">🧾 Ventas</a>
+            <a href="#">🧾 Reservas</a>
             <a href="#">📊 Reportes</a>
         </nav>
+
 
         <!-- PRINCIPAL -->
         <main class="main-content">
