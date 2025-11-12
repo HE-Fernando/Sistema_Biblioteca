@@ -5,6 +5,7 @@
     --color-texto: #333;
     --radius: 8px;
 }
+
 /*               LOGIN                */ 
 body {
     margin: 0;
@@ -108,3 +109,208 @@ body.index button {
 body.index button:hover {
     background-color: var(--color-principal-hover);
 }
+
+/* --- MENÚ LATERAL --- */
+nav.sidebar {
+    width: 220px;
+    background-color: #3949ab;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+header.navbar {
+    background-color: #283593;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.btn-logout {
+    background-color: #e53935;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* === NUEVOS ESTILOS AGREGADOS DEL SEGUNDO CSS === */
+
+/* Estilos para body.index más completos */
+body.index {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f7f8fa;
+}
+
+/* header h1 (no estaba antes) */
+header h1 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* Hover del botón de logout */
+.btn-logout:hover {
+    background-color: #c62828;
+}
+
+/* Mensajes de logout */
+.logout-msg {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.logout-msg.ok { color: green; }
+.logout-msg.error { color: red; }
+
+/* --- LAYOUT GENERAL --- */
+.container {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+/* --- Enlaces dentro del menú lateral --- */
+nav.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    display: block;
+    transition: background 0.3s;
+}
+
+nav.sidebar a:hover {
+    background-color: #5c6bc0;
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+main.main-content {
+    flex: 1;
+    padding: 25px;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+/* Títulos dentro del main */
+main h2 {
+    color: #283593;
+}
+
+/* --- PIE DE PÁGINA --- */
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #e8eaf6;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+nav.sidebar a.activo {
+    background-color: #5c6bc0;
+    font-weight: bold;
+}
+
+/* TABLA */
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    margin: 20px;
+}
+
+/* --- TABLA --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+/* --- ENCABEZADOS --- */
+th {
+    background-color: #0078d7;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+}
+
+/* --- CELDAS --- */
+td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+/* --- ALTERNANCIA DE FILAS --- */
+tr:nth-child(even) {
+    background-color: #f2f6fa;
+}
+
+tr:hover {
+    background-color: #e8f1fb;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* --- INPUTS --- */
+input[type="text"] {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #0078d7;
+    box-shadow: 0 0 4px rgba(0, 120, 215, 0.3);
+}
+
+/* --- TAMAÑO DE COLUMNAS --- */
+th:nth-child(1), td:nth-child(1) { width: 5%; }   /* ID */
+th:nth-child(2), td:nth-child(2) { width: 25%; }  /* Título */
+th:nth-child(3), td:nth-child(3) { width: 20%; }  /* Autor */
+th:nth-child(4), td:nth-child(4) { width: 15%; }  /* ISBN */
+th:nth-child(5), td:nth-child(5) { width: 20%; }  /* Editorial */
+th:nth-child(6), td:nth-child(6) { width: 8%; }   /* Año */
+th:nth-child(7), td:nth-child(7) { width: 7%; }   /* Estado */
+
+/* --- TEXTAREA --- */
+textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    resize: vertical; /* Permite agrandar manualmente en altura */
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+textarea:focus {
+    border-color: #0078d7;
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.3);
+    outline: none;
+}
+/* Ajuste específico para el input de año */
+input[name="anio"] {
+    width: 160px; /* podés subir a 180px si querés más espacio */
+}
+

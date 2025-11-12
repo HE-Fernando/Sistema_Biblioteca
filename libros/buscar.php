@@ -1,8 +1,10 @@
 <?php
-include("../includes/auth.php");
-include("../includes/header.php");
-include("../config/database.php");
-?>
+session_start();
+if (!isset($_SESSION["usuario"])){
+    header("Location: ../biblioteca/login.php");
+    exit();
+}
+require_once '../config/conexion_db.php';
 
 <div class="container">
   <h2>🔎 Buscar Libros</h2>
@@ -22,6 +24,7 @@ include("../config/database.php");
     <button type="button" id="btnBuscar" class="btn btn-primary">Buscar</button>
   </form>
 
+<<<<<<< HEAD
   <hr>
   <h3>Resultados:</h3>
   <table class="tabla">
@@ -91,3 +94,32 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <?php include("../includes/footer.php"); ?>
+=======
+try {
+    if (!empty($buscar)){
+        //Buscar por título, autor o ISBN
+        $sql = "SELECT id, titulo, autor, isbn, editorial, anio, categoria, descripcion, estado
+        FROM libro WHERE titulo LIKE ? OR autor LIKE ? OR isbn LIKE ? ORDER BY id DESC";
+        $stm = $pdo->prepare($sql);
+        $like = "%$buscar%";
+        $stm->execute([$like, $like, $like]);
+    } else {
+        //Si no hay parametros de busqueda, listar todos los libros
+        $sql = "SELECT id, titulo, autor, isbn, editorial, anio, categoria, descripcion, estado
+        FROM libro ORDER BY id DESC";
+        $stm = $pdo->query($sql);
+    }
+    $resultados = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode([
+        "success" => true,
+        "data" => $resultados
+    ]);
+} catch (PDOException $e){
+    echo json_encode([
+        "success" => false,
+        "message" => "Error al buscar libros: " . $e->getMessage()
+    ]);
+}
+?>
+>>>>>>> origin/Fernando

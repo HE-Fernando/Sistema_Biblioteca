@@ -1,35 +1,52 @@
 <?php
-include("../includes/header.php");
-include("../config/database.php");
+session_start();
+if (!isset($_SESSION["usuario"])){
+    header("Location: ../biblioteca/login.php");
+    exit();
+}
+require_once '../config/conexion_db.php';
 
-$id = $_GET['id'] ?? null;
-if (!$id) die("Préstamo no encontrado");
+header('Content-Type: application/json; charset=utf-8');
 
-$stmt = $pdo->prepare("
-    SELECT p.*, u.nombre AS usuario, l.titulo AS libro
-    FROM prestamos p
-    JOIN usuarios u ON p.usuario_id = u.id
-    JOIN libros l ON p.libro_id = l.id
-    WHERE p.id = ? AND p.estado = 'activo'
-");
-$stmt->execute([$id]);
-$prestamo = $stmt->fetch(PDO::FETCH_ASSOC);
-if (!$prestamo) die("Préstamo no válido o ya devuelto");
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'] ?? 0;
+
+    if (empty($id)) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Falta el ID del prestamo'
+        ]);
+        exit;
+    }
+    //obtengo el id del libro mediante el id del prestamo
+    $sqlLibro = "SELECT libro_id FROM prestamos WHERE id = ?";
+    $stmLibro = $pdo->prepare($sqlLibro);
+    $stmLibro->execute([$id]);
+    $resultado = $stmLibro->fetch(PDO::FETCH_ASSOC);
+    $libro_id = $resultado["libro_id"];
+
+    //actualizo el estado del prestamo a devuelto
+    $sql = "UPDATE prestamos
+    SET fecha_dev_real = CURDATE(),
+        estado = 'devuelto'
+    WHERE id = ?";
+    $stm = $pdo->prepare($sql);
+    $stm->execute([$id]);
+
+    //actualizo el estado del libro a disponible
+    $sqlActualizar = "UPDATE libro SET estado = ? WHERE id = ?";
+    $stmActualizar = $pdo->prepare($sqlActualizar);
+    $stmActualizar->execute(["disponible", $libro_id]);
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'Devolución registrada correctamente'
+    ]);
+    exit;
+}
+
+echo json_encode([
+    'success' => false,
+    'message' => 'Método no permitido'
+]);
 ?>
-
-<div class="container mt-4">
-    <h2>🔄 Registrar Devolución</h2>
-    <p><strong>Usuario:</strong> <?= htmlspecialchars($prestamo['usuario']) ?></p>
-    <p><strong>Libro:</strong> <?= htmlspecialchars($prestamo['libro']) ?></p>
-    <p><strong>Fecha devolución pactada:</strong> <?= $prestamo['fecha_devolucion'] ?></p>
-
-    <form id="formDevolucion">
-        <input type="hidden" name="id" value="<?= $prestamo['id'] ?>">
-        <button class="btn btn-primary">Confirmar devolución</button>
-    </form>
-
-    <div id="resultado" class="mt-3"></div>
-</div>
-
-<script src="../assets/js/prestamos.js"></script>
-<?php include("../includes/footer.php"); ?>

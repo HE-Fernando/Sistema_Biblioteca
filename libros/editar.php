@@ -1,7 +1,10 @@
 <?php
-include("../includes/auth.php");
-include("../includes/header.php");
-include("../config/database.php");
+session_start();
+if (!isset($_SESSION["usuario"])){
+    header("Location: ../biblioteca/login.php");
+    exit();
+}
+require_once '../config/conexion_db.php';
 
 $id = $_GET['id'] ?? null;
 if (!$id) die("ID inválido");
@@ -13,6 +16,7 @@ $libro = $stmt->fetch();
 if (!$libro) die("Libro no encontrado");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+<<<<<<< HEAD
   $titulo = $_POST['titulo'];
   $autor = $_POST['autor'];
   $isbn = $_POST['isbn'];
@@ -26,6 +30,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->execute([$titulo, $autor, $isbn, $editorial, $anio, $categoria, $descripcion, $estado, $id]);
 
   echo "<p>✅ Libro actualizado.</p>";
+=======
+    $id = $_POST['id'] ?? 0;
+    $titulo = $_POST['titulo'] ?? '';
+    $autor = $_POST['autor'] ?? '';
+    $isbn = $_POST['isbn'] ?? '';
+    $editorial = $_POST["editorial"] ?? "";
+    $anio = $_POST["anio"] ?? null;
+    $categoria = $_POST['categoria'] ?? '';
+    $descripcion = $_POST['descripcion'] ?? '';
+
+    if (empty($id) || empty($titulo) || empty($autor) || empty($isbn)) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Datos incompletos'
+        ]);
+        exit;
+    }
+
+    $sql = "UPDATE libro SET titulo = ?, autor = ?, isbn = ?, editorial = ?, anio = ?, categoria = ?, descripcion = ?
+    WHERE id = ?";
+    $stm = $pdo->prepare($sql);
+    $ok = $stm->execute([$titulo, $autor, $isbn, $editorial, $anio, $categoria, $descripcion, $id]);
+
+    if ($ok){
+        echo json_encode([
+            "success" => true,
+            "message" => "Libro actualizado correctamente"
+        ]);
+    } else {
+        echo json_encode([
+            "success" => false,
+            "message" => "Error al actualizar libro"
+        ]);
+    }
+    exit;
+>>>>>>> origin/Fernando
 }
 ?>
 
@@ -48,3 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 <?php include("../includes/footer.php"); ?>
 
+<<<<<<< HEAD
+=======
+echo json_encode([
+    'success' => false,
+    'message' => 'Método no permitido'
+]);
+?>
+>>>>>>> origin/Fernando
