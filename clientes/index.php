@@ -75,7 +75,7 @@ if (!isset($_SESSION["usuario"])){
         <!-- Buscador -->
         <section>
             <h3>Buscar clientes</h3>
-            <input type="text" id="buscar" placeholder="Buscar...">
+            <input type="text" id="buscar" placeholder="Buscar (nombre, dni)...">
             <button onclick="buscarClientes()">Buscar</button>
         </section>
 

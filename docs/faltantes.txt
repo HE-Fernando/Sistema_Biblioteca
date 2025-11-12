@@ -1,0 +1,37 @@
+Eliminar Libro:
+Mostrar mensaje de error si se intenta eliminar un libro prestado (no muy complicado de implementar)
+
+Editar Usuario:
+Cambiar estado (activo/suspendido) (no muy complicado de implementar)
+
+Ver Detalle de Usuario:
+Préstamos activos (con detalle)
+Historial de préstamos (últimos 10)
+
+Eliminar Usuario:
+Considerar marcar como "inactivo" en lugar de eliminar (no muy complicado de implementar)
+
+Validaciones al prestar:
+El usuario debe estar activo (no suspendido)
+El usuario NO debe exceder el límite de préstamos simultáneos (máximo 3) (no muy complicado de implementar)
+
+Listar Préstamos Activos:
+Filtros: todos/solo vencidos/próximos a vencer
+
+Al hacer clic en "Registrar Devolución":
+Si tiene atraso, calcular y mostrar días de demora
+
+INDEX
+Estadísticas generales:
+Total de libros en biblioteca
+Libros disponibles
+Libros prestados
+Total de usuarios activos
+Total de préstamos activos
+Préstamos vencidos (destacado)
+
+Secciones:
+Alertas de préstamos vencidos (tabla con acciones rápidas)
+Préstamos próximos a vencer (3 días o menos)
+Últimos préstamos realizados (5 más recientes)
+Libros más prestados (top 5)

@@ -83,7 +83,7 @@ if (!isset($_SESSION["usuario"])){
         <!-- Buscador -->
         <section>
             <h3>Buscar libros</h3>
-            <input type="text" id="buscar" placeholder="Buscar...">
+            <input type="text" id="buscar" placeholder="Buscar (título, autor, isbn)...">
             <button onclick="buscarLibros()">Buscar</button>
         </section>
 
