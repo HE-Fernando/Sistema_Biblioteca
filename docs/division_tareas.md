@@ -17,6 +17,7 @@ Implementación de estilos.
 Index principal funcional.
 Index libros funcional.
 Index clientes funcional.
+Index prestamos funcional.
 
 # BENITEZ, Gabriel Eduardo
 Conexión con base de datos.
@@ -34,5 +35,5 @@ Reutilización de sistema "login_logica" utilizado anteriormente.
 Implementación de peticiones JavaScript / Ajax para sistema "login_logica".
 Debug de sistema completo de libros (index, buscar, crear, eliminar, editar). Estado actual funcionando.
 Autentificación de sesión (inicio, autentificación, redirección).
-
+Lógica de prestamos de libros (comparación de fechas, actualización de estados, etc).
 

@@ -1,7 +1,5 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 if (!isset($_SESSION["usuario"])){
     header("Location: ../biblioteca/login.php");
     exit();
@@ -22,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $sql = "DELETE FROM usuario WHERE id = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
+    $stm = $pdo->prepare($sql);
+    $stm->execute([$id]);
 
     echo json_encode([
         'success' => true,

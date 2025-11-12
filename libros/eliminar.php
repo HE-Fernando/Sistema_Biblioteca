@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $sql = "DELETE FROM libro WHERE id=?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
+    $stm = $pdo->prepare($sql);
+    $stm->execute([$id]);
 
     echo json_encode([
         'success' => true,
