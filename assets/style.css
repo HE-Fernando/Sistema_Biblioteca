@@ -314,3 +314,13 @@ input[name="anio"] {
     width: 160px; /* podés subir a 180px si querés más espacio */
 }
 
+.logo-sistema {
+    height: 40px; /* ajusta el tamaño a gusto */
+    width: auto;
+    border-radius: 5px; /* opcional */
+}
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

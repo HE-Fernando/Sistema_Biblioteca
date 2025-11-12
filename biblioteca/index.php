@@ -17,10 +17,13 @@ if (!isset($_SESSION["usuario"])){
 <body class="index">
     <!-- BARRA SUPERIOR -->
     <header class="navbar">
-        <h1>Bienvenido
+        <div class="navbar-left">
+            <img src="../assets/logo.png" alt="Logo del sistema" class="logo-sistema">
+            <h1>Bienvenido
             [<?php echo htmlspecialchars($_SESSION["nombre"]);?>]
             [<?php echo htmlspecialchars($_SESSION["rol"])?>]
         </h1>
+        </div>
         <button id="logoutBtn" class="btn-logout">Cerrar sesión</button>
     </header>
 
