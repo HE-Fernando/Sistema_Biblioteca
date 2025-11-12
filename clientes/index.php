@@ -32,7 +32,7 @@ if (!isset($_SESSION["usuario"])){
         <a href="../libros/index.php">📖 Libros</a>
         <a href="index.php" class="<?= $pagina_actual == 'index.php' ? 'activo' : '' ?>">👥 Clientes</a>
         <a href="../prestamos/index.php">🧾 Préstamos</a>
-        <a href="#">📊 Reportes</a>
+        <!--<a href="#">📊 Reportes</a> -->
     </nav>
 
 
